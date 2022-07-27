@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDirs": [
+      "src"
+    ],
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "strict": true,
+    "sourceMap": true,
+  },
+
+}
