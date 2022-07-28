@@ -1,4 +1,4 @@
-export interface EventGoodsResponse {
+export interface CUEventGoodsResponse {
   abrGoodsNm: string;
   attFileId: string;
   attFileNm: string;
@@ -21,14 +21,14 @@ export interface EventGoodsResponse {
   prmtYear: string;
 }
 
-export interface EventGoodsPagination {
+export interface CUEventGoodsPagination {
   currentPage: number;
   numberOfPages: number;
   pageSize: number;
   totalNumberOfResults: number;
 }
 
-export interface EventGoodsResponseWrapper {
-  results: EventGoodsResponse[];
-  pagination: EventGoodsPagination;
+export interface CUEventGoodsResponseWrapper {
+  results: CUEventGoodsResponse[];
+  pagination: CUEventGoodsPagination;
 }
