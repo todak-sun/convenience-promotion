@@ -1,5 +1,5 @@
-async function run(){
+async function run(args: string[]) {
   
 }
 
-run()
+run(process.argv.slice(2));
