@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: timescale-postgis
+    image: timescale/timescaledb-postgis:latest-pg12
+    restart: always
+    environment:
+      POSTGRES_USER: todak
+      POSTGRES_PASSWORD: todak
+      POSTGRES_DB: todak
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres_net
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: todak@todak.com
+      PGADMIN_DEFAULT_PASSWORD: todak
+    ports:
+      - "15050:80"
+    networks:
+      - postgres_net
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.9.8-management-alpine
+    restart: always
+    ports:
+      - "5672:5672"
+      - "18080:15672"
+
+  redis:
+    container_name: redis-server
+    image: redis:6.2.6-alpine
+    command: redis-server --requirepass todak --port 6379
+    restart: always
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    container_name: mongo-db
+    image: mongo:5.0.3
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: todak
+      MONGO_INITDB_ROOT_PASSWORD: todak
+    ports:
+      - "27017:27017"
+
+networks:
+  postgres_net:
+    driver: bridge
