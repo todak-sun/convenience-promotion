@@ -8,6 +8,8 @@ export const StoreType = {
 
 export type StoreType = keyof typeof StoreType;
 
+export const isStoreType = (value: any): value is StoreType => Boolean(StoreType[value as StoreType]);
+
 export interface EventGoods {
   store: StoreType;
   imageSrc: string;
