@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./test.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    async function loadData() {
+      const fileTypes = [`cu`, `emart24`, `ministop`, `gs25`, `seveneleven`];
+      const data = await Promise.all(
+        fileTypes
+          .map((type) => `../.data/${type}.json`)
+          .map(async (url) => {
+            const res = await fetch(url);
+            return await res.json();
+          })
+      );
+      return data.flat(1);
+    }
+
+    async function run() {
+      const appDom = document.getElementById(`app`);
+
+      const ul = document.createElement('ul');
+      appDom.appendChild(ul);
+
+      const itemGoods = await loadData();
+
+      const frag = itemGoods
+        .sort((item1, item2) => item1.price - item2.price)
+        .reduce((frag, curr) => {
+          const li = document.createElement('li');
+          li.classList.add(`item-container`)
+          const img = document.createElement('img');
+          img.src = curr.imageSrc;
+          const productName = document.createElement(`span`);
+          productName.classList.add('item-name')
+          productName.textContent = curr.productName;
+          const price = document.createElement(`span`);
+          price.textContent = `${curr.price}원`;
+          const store = document.createElement(`span`);
+          store.textContent = curr.store;
+          li.appendChild(store);
+          li.appendChild(img);
+          li.appendChild(productName);
+          li.appendChild(price);
+          frag.appendChild(li);
+
+          return frag;
+        }, document.createDocumentFragment());
+      ul.appendChild(frag);
+    }
+
+    run();
+  </script>
+</html>

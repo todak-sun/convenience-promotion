@@ -1,5 +1,5 @@
 import { Arguments } from './core/cli';
-import { isStoreType, StoreType } from './model/model';
+import { isStoreType, StoreType, EventGoods } from './model/model';
 import { EventGoodsRobot } from './robots/index';
 import { CUEventGoodsRobot } from './robots/cu';
 import { Configurator } from './core/configurator';
@@ -7,6 +7,7 @@ import { Emart24GoodsRobot } from './robots/emart24';
 import { GS25EventGoodsRobot } from './robots/gs25';
 import { MinistopGoodsRobot } from './robots/ministop';
 import { SevenElevenGoodsRobot } from './robots/seveneleven';
+import { RabbitMQPublisher } from './message/message';
 
 async function run(arvs: string[] = process.argv.slice(2)) {
   const robotFactory: Record<StoreType, (configurator: Configurator) => EventGoodsRobot> = {
@@ -22,9 +23,13 @@ async function run(arvs: string[] = process.argv.slice(2)) {
 
   if (isStoreType(storeType)) {
     const configurator = new Configurator();
+    const publisher = new RabbitMQPublisher<EventGoods>(configurator);
+    await publisher.connect({ topicName: `CONVINIENCE.EVENT.GOODS`, routingKey: `ITEM`, queueNames: [`PROCESSOR`] });
     const robot: EventGoodsRobot = robotFactory[storeType](configurator);
     const eventGoods = await robot.scrap();
-    console.log(JSON.stringify({ eventGoods }));
+
+    await publisher.publishAll(eventGoods);
+    await publisher.close();
   } else {
     throw new Error(`Require arguments --store={one of [${Object.keys(StoreType).join(', ')}]}`);
   }

@@ -7,7 +7,7 @@ export type RabbitMQPublisherConnectOptions = {
   queueNames?: string[];
 };
 
-export class RabbitMQPublisher {
+export class RabbitMQPublisher<T> {
   private connection: Connection | undefined;
 
   private topicName: string | undefined;
@@ -50,7 +50,7 @@ export class RabbitMQPublisher {
     }
   };
 
-  publish = async (message: any) => {
+  publish = async (message: T) => {
     if (!this.connection) {
       throw new Error(`현재 연결되어 있지 않습니다.`);
     }
@@ -59,7 +59,7 @@ export class RabbitMQPublisher {
     await ch.close();
   };
 
-  publishAll = async (messages: any[]) => {
+  publishAll = async (messages: T[]) => {
     if (!this.connection) {
       throw new Error(`현재 연결되어 있지 않습니다.`);
     }
