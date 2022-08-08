@@ -1,4 +1,4 @@
-package io.todak.conveniencepromotion.processor.service
+package io.todak.conveniencepromotion.processor.domain
 
 data class EventGoods(
     val eventType: String,

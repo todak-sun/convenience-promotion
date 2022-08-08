@@ -1,7 +1,7 @@
 package io.todak.conveniencepromotion.processor.consumer
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.todak.conveniencepromotion.processor.service.EventGoods
+import io.todak.conveniencepromotion.processor.domain.EventGoods
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.core.Message
 import org.springframework.amqp.rabbit.annotation.RabbitListener
