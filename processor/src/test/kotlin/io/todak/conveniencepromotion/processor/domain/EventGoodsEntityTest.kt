@@ -1,13 +1,15 @@
 package io.todak.conveniencepromotion.processor.domain
 
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
-
+@SpringBootTest
 @Testcontainers
 internal class EventGoodsEntityTest {
 
@@ -24,9 +26,13 @@ internal class EventGoodsEntityTest {
         }
     }
 
+    @Autowired
+    private lateinit var repository: EventGoodsRepository
+
     @Test
     fun load(){
-        println("LOAD................")
+        val eventGoods = EventGoodsEntity(null, "productName", 1000, "https://image.com.jpg", "1+1", "CU")
+        this.repository.save(eventGoods)
     }
 
 
