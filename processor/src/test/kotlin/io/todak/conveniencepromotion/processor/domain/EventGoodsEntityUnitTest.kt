@@ -7,7 +7,7 @@ internal class EventGoodsEntityUnitTest {
 
     @Test
     fun test() {
-        val entity = EventGoodsEntity(null, "productName", 0, null, "1+1", "GS25")
+        val entity = EventGoodsEntity( "productName", 0, "http://www.naver.com", "1+1", "GS25")
         assertNull(entity.id)
     }
 }
