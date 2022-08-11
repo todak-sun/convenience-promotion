@@ -64,6 +64,9 @@ export class RabbitMQPublisher<T> {
       throw new Error(`현재 연결되어 있지 않습니다.`);
     }
     const ch: Channel = await this.connection.createChannel();
+    ch.on(`close`, () => {
+      console.log(`Channel Close!!!`)
+    })
     messages.forEach((message) => this.publishInternal(ch, message));
     await ch.close();
   };

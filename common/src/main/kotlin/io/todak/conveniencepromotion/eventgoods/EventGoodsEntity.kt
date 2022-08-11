@@ -1,4 +1,4 @@
-package io.todak.conveniencepromotion.processor.domain
+package io.todak.conveniencepromotion.eventgoods
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener

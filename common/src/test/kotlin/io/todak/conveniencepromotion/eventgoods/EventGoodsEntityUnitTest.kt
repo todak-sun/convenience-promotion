@@ -1,4 +1,4 @@
-package io.todak.conveniencepromotion.processor.domain
+package io.todak.conveniencepromotion.eventgoods
 
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
