@@ -1,20 +1,25 @@
 package io.todak.conveniencepromotion.processor.domain
 
 import io.todak.conveniencepromotion.processor.helpers.WithContainers
+import io.todak.conveniencepromotion.processor.logger
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.slf4j.Logger
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import org.testcontainers.junit.jupiter.Testcontainers
+
 import javax.persistence.EntityManager
 
 @Transactional
 @SpringBootTest
 @Testcontainers
 internal class EventGoodsEntityTest : WithContainers() {
+
+    val log: Logger = logger()
 
     @Autowired
     lateinit var repository: EventGoodsRepository
@@ -36,6 +41,9 @@ internal class EventGoodsEntityTest : WithContainers() {
 
         val founded = this.repository.findById(eventGoodsId)
         assertTrue(founded.isPresent)
+        val eventGoodsEntity = founded.get()
+        log.info("eventMonth : ${eventGoodsEntity.eventMonth}")
+
     }
 
 

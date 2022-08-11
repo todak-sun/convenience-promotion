@@ -1,4 +1,16 @@
 spring:
+  application:
+    name: CONVENIENCE_PROMOTION_ITEM_PROCESSOR
   rabbitmq:
     host: localhost
     port: 5672
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: todak
+    password: todak
+    url: jdbc:postgresql://127.0.0.1:5432/todak
+    hikari:
+      pool-name: CONVENIENCE_PROMOTION_ITEM_PROCESSOR_DEV
+  jpa:
+    hibernate:
+      ddl-auto: create

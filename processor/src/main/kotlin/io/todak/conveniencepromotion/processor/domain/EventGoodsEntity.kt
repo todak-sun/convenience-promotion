@@ -29,7 +29,11 @@ class EventGoodsEntity(
     lateinit var createdDateTime: LocalDateTime
         private set
 
+    var eventMonth: String
+
     init {
         this.id = null
+        val now = LocalDateTime.now()
+        this.eventMonth = "${now.year}-${now.monthValue.toString().padStart(2, '0')}"
     }
 }
