@@ -1,9 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("org.springframework.boot") version "2.7.2"
     id("io.spring.dependency-management") version "1.0.12.RELEASE"
     kotlin("jvm") version "1.6.21"
+    kotlin("kapt") version "1.3.61" // QueryDSL
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
 }
@@ -25,6 +27,9 @@ repositories {
 extra["testcontainersVersion"] = "1.17.3"
 
 dependencies {
+
+    implementation(project(":common"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -54,4 +59,16 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+subprojects {
+    val querydslVersion = "5.0.0" // queryDSL
+    apply(plugin = "java")
+    apply(plugin = "kotlin-kapt") // queryDSL
+
+    dependencies {
+        //queryDSL
+        implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+        kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
+    }
 }
