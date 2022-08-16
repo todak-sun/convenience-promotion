@@ -25,7 +25,7 @@ repositories {
 extra["testcontainersVersion"] = "1.17.3"
 
 dependencies {
-    implementation(project(":common"))
+    implementation(project(":core"))
 
     implementation("org.springframework.boot:spring-boot-starter-amqp")
     implementation("com.fasterxml.jackson.core:jackson-databind")

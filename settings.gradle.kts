@@ -1,5 +1,8 @@
 rootProject.name = "convenience-promotion"
 
-include("api")
-include("processor")
-include("common")
+include(
+    "api",
+    "processor",
+    "core"
+)
+
