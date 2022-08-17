@@ -2,9 +2,13 @@ plugins {
     java
     id("org.springframework.boot") version "2.7.2" apply false
     id("io.spring.dependency-management") version "1.0.12.RELEASE" apply false
-    kotlin("jvm") version "1.6.21" apply false
-    kotlin("plugin.spring") version "1.6.21" apply false
-    kotlin("plugin.jpa") version "1.6.21" apply false
+
+    val kotlinVersion = "1.6.21"
+
+    kotlin("jvm") version kotlinVersion apply false
+    kotlin("kapt") version  kotlinVersion apply false
+    kotlin("plugin.spring") version kotlinVersion apply false
+    kotlin("plugin.jpa") version kotlinVersion apply false
 }
 
 repositories {

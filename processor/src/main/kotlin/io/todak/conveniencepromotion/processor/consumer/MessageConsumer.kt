@@ -1,7 +1,7 @@
 package io.todak.conveniencepromotion.processor.consumer
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.todak.conveniencepromotion.logger
+import io.todak.conveniencepromotion.processor.logger
 import io.todak.conveniencepromotion.processor.domain.EventGoods
 import io.todak.conveniencepromotion.processor.domain.Service
 

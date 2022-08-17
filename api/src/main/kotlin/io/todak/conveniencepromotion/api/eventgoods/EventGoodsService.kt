@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service
 class EventGoodsService(private val repository: EventGoodsRepository) {
 
     fun findAll(): MutableList<EventGoodsEntity> {
+
         return this.repository.findAll()
     }
 
