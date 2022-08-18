@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 
 @ComponentScan("io.todak.conveniencepromotion")
+@EntityScan("io.todak.conveniencepromotion.domain")
 @EnableJpaRepositories("io.todak.conveniencepromotion.domain")
 @SpringBootApplication
 class ApiApplication
