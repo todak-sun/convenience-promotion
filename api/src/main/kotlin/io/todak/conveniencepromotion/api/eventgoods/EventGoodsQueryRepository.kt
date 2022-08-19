@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
 import io.todak.conveniencepromotion.domain.eventgoods.EventGoodsEntity
 import io.todak.conveniencepromotion.domain.eventgoods.QEventGoodsEntity.eventGoodsEntity
+import io.todak.conveniencepromotion.domain.eventgoods.StoreType
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -32,7 +33,7 @@ class EventGoodsQueryRepository(private val qf: JPAQueryFactory) {
         return qf.select(eventGoodsEntity)
             .from(eventGoodsEntity)
             .where(BooleanBuilder().apply {
-                condition.store.let { this.and(eventGoodsEntity.store.eq(it)) }
+                condition.store.let { this.and(eventGoodsEntity.store.eq(StoreType.CU)) }
             })
             .limit(pageable.pageSize.toLong())
             .orderBy(OrderSpecifier(Order.ASC, Expressions.path(String::class.java, eventGoodsEntity, "productName")))

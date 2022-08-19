@@ -21,6 +21,7 @@ abstract class WithContainers {
             registry.add("spring.datasource.username", postgreSQLContainer::getUsername)
             registry.add("spring.datasource.password", postgreSQLContainer::getPassword)
         }
+
     }
 
 }

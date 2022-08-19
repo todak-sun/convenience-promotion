@@ -17,7 +17,7 @@ class EventGoodsEntity(
     @Column(name = "EVENT_TYPE", nullable = false)
     var eventType: String,
     @Column(name = "STORE", nullable = false)
-    var store: String
+    var store: StoreType
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
