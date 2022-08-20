@@ -2,6 +2,7 @@ package io.todak.conveniencepromotion.api.web
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.boot.autoconfigure.session.StoreType
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,15 +17,16 @@ class EventGoodsController {
 
     //  {{host}}/eventgoods?size={{size}}&page={{page}}&order={{id}}&store={{GS25|CU|EMART24|MINISTOP|SEVENELEVEN|ALL}}
     @GetMapping
-    fun fetchAll(pageable: Pageable) {
+    fun fetchAll(pageable: Pageable, options: EventGoodsQueryOptions = EventGoodsQueryOptions()) {
         log.info("pageable : {}", pageable)
+        log.info("options : {}", options)
+
+
+
     }
 
 
 }
 
 
-
-class EventGoodsQueryOptions {
-
-}
+data class EventGoodsQueryOptions(val store: StoreType? = null, val minPrice: Int? = null, val maxPrice: Int? = null)
