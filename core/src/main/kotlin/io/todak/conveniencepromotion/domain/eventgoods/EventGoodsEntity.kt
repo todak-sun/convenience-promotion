@@ -29,7 +29,8 @@ class EventGoodsEntity(
     lateinit var createdDateTime: LocalDateTime
         private set
 
-    var eventMonth: String
+    @Column(name = "EVENT_MONTH")
+    val eventMonth: String
 
     init {
         this.id = null
