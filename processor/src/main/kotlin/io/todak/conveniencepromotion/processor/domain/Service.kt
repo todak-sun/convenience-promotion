@@ -1,7 +1,6 @@
 package io.todak.conveniencepromotion.processor.domain
 
 import io.todak.conveniencepromotion.domain.eventgoods.EventGoodsEntity
-import io.todak.conveniencepromotion.domain.eventgoods.EventGoodsRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -16,7 +15,8 @@ class Service(private val repository: EventGoodsRepository) {
         if (founded.isPresent) {
             return
         }
-        val entity: EventGoodsEntity = EventGoodsEntity(goods.productName, goods.price, goods.imageSrc, goods.eventType, goods.store)
+        val entity: EventGoodsEntity =
+            EventGoodsEntity(goods.productName, goods.price, goods.imageSrc, goods.eventType, goods.store)
         this.repository.save(entity)
     }
 }
