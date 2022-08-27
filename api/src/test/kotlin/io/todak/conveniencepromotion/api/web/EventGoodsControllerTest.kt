@@ -21,15 +21,21 @@ internal class EventGoodsControllerTest : WithContainers() {
     lateinit var mvc: MockMvc
 
     @BeforeEach
-    fun beforeEach(): Unit {
+    fun beforeEach() {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.context)
             .alwaysDo<DefaultMockMvcBuilder>(MockMvcResultHandlers.print())
             .build()
     }
 
     @Test
-    fun pageableTest(){
-        this.mvc.perform(MockMvcRequestBuilders.get("/eventgoods?page=1&size=10&sort=id,ASC"))
+    fun pageableTest() {
+        this.mvc.perform(
+            MockMvcRequestBuilders.get("/eventgoods")
+                .queryParam("page", "1")
+                .queryParam("size", "10")
+                .queryParam("maxPrice", "5000")
+                .queryParam("sort", "price,ASC")
+        )
 
     }
 
