@@ -5,11 +5,11 @@ import io.todak.conveniencepromotion.domain.eventgoods.StoreType
 
 
 data class EventGoodsProjector @QueryProjection constructor(
-    private val eventGoodId: Long,
-    private val eventType: String,
-    private val store: StoreType,
-    private val productName: String,
-    private val price: Int,
-    private val imageSrc: String,
-    private val eventMonth: String
+    val eventGoodId: Long,
+    val eventType: String,
+    val store: StoreType,
+    val productName: String,
+    val price: Int,
+    val imageSrc: String,
+    val eventMonth: String
 )
