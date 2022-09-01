@@ -1,8 +1,10 @@
 package io.todak.conveniencepromotion.api.web
 
+
 import io.todak.conveniencepromotion.api.helpers.WithContainers
 import io.todak.conveniencepromotion.domain.eventgoods.EventGoodsEntity
 import io.todak.conveniencepromotion.domain.eventgoods.StoreType
+import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,8 +13,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.transaction.annotation.Transactional
@@ -57,15 +58,21 @@ internal class EventGoodsControllerTest : WithContainers() {
     fun pageableTest() {
         this.mvc.perform(
             MockMvcRequestBuilders.get("/eventgoods")
-                .queryParam("page", "2")
+                .queryParam("page", "1")
                 .queryParam("size", "10")
                 .queryParam("maxPrice", "5000")
                 .queryParam("sort", "price,ASC")
         )
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//            .andExpect()
-        ;
+            .andExpect(jsonPath("$").isArray)
+            .andExpect(jsonPath("$.length()", `is`(10)))
+            .andExpect(jsonPath("$[0]").isMap)
+            .andExpect(jsonPath("$[0].store").isString)
+            .andExpect(jsonPath("$[0].price").isNumber)
+            .andExpect(jsonPath("$[0].type").isString)
+            .andExpect(jsonPath("$[0].productName").isString)
+            .andExpect(jsonPath("$[0].imageSrc").isString)
 
     }
 
