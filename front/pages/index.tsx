@@ -1,9 +1,17 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import axios from 'axios';
+import Head from 'next/head';
 
-const Home: NextPage = () => {
+import styles from '../styles/Home.module.css';
+import { EventGood } from './components/eventgood.component';
+
+import type {EventGoodType} from './api/eventgoods';
+
+import type {NextPage} from 'next';
+interface HomeProps {
+  eventgoods: EventGoodType[];
+}
+
+const Home: NextPage<HomeProps> = (props: HomeProps) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,30 +21,32 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Convenience Store Promotion
-        </h1>
+        <h1 className={styles.title}>Convenience Store Promotion</h1>
         <ul>
-          <li>
-            <div>
-              <div>
-                <img src="" alt="" />
-              </div>
-              <h4>제품명이 여기</h4>
-              <p>
-                <span>가격</span>
-                <span>15,000원</span>
-              </p>
-            </div>
-          </li>
+          {props.eventgoods.map((good) => (
+            <EventGood key={good.productName} eventgood={good} />
+          ))}
         </ul>
       </main>
 
-      <footer className={styles.footer}>
-
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
+
+export async function getStaticProps(): Promise<{props: HomeProps}> {
+  try {
+    const res = await axios.get(`http://localhost:3000/api/eventgoods`);
+    const data = res.data;
+    return {
+      props: {
+        eventgoods: data,
+      },
+    };
+  } catch (e) {
+    console.error(`ERROR`);
+    throw e;
+  }
+}
